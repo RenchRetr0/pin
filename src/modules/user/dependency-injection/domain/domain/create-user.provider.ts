@@ -1,8 +1,10 @@
-import { Provider } from "@nestjs/common";
-import { ICreateUserUseCase, CreateUserUseCase } from "@user/domain/use-case/create";
+import { Provider } from '@nestjs/common';
+import {
+    ICreateUserUseCase,
+    CreateUserUseCase,
+} from '@user/domain/use-case/create';
 
-export const CreateUserProvider: Provider =
-{
+export const CreateUserProvider: Provider = {
     provide: ICreateUserUseCase,
-    useClass: CreateUserUseCase
-}
+    useClass: CreateUserUseCase,
+};

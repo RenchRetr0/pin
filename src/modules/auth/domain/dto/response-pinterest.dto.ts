@@ -1,5 +1,4 @@
-export class ResponserPinterestDto
-{
+export class ResponserPinterestDto {
     response_type!: string;
     access_token!: string;
     token_type!: string;

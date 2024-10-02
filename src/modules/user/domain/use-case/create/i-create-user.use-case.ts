@@ -1,6 +1,5 @@
-import { CreateUserDto } from "../../dto";
+import { CreateUserDto } from '../../dto';
 
-export abstract class ICreateUserUseCase
-{
-    abstract create(createUserDto: CreateUserDto): Promise<void>
+export abstract class ICreateUserUseCase {
+    abstract create(createUserDto: CreateUserDto): Promise<void>;
 }

@@ -7,18 +7,9 @@ import { ExportProviders } from './dependency-injection/exports';
 import { UserController } from './api';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([UserEntity])
-    ],
-    controllers: [
-        UserController
-    ],
-    providers: [
-        ...UserProviders,
-        RepositoryProvider
-    ],
-    exports: [
-        ...ExportProviders
-    ]
+    imports: [TypeOrmModule.forFeature([UserEntity])],
+    controllers: [UserController],
+    providers: [...UserProviders, RepositoryProvider],
+    exports: [...ExportProviders],
 })
 export class UserModule {}

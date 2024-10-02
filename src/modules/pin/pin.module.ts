@@ -7,18 +7,9 @@ import { ImageProvider } from './dependency-injection/domain/storage';
 import { ImageController, PinController } from './api';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([ImageEntity]),
-        UserModule
-    ],
-    controllers: [
-        ImageController,
-        PinController
-    ],
-    providers: [
-        ...UseCaseProviders,
-        ImageProvider
-    ],
-    exports: []
+    imports: [TypeOrmModule.forFeature([ImageEntity]), UserModule],
+    controllers: [ImageController, PinController],
+    providers: [...UseCaseProviders, ImageProvider],
+    exports: [],
 })
 export class PinModule {}

@@ -1,9 +1,8 @@
-import { Provider } from "@nestjs/common";
-import { CreateImageProvider } from "./create";
-import { GetImageProvider } from "./get";
+import { Provider } from '@nestjs/common';
+import { CreateImageProvider } from './create';
+import { GetImageProvider } from './get';
 
-export const ImageProviders: Provider[] =
-[
+export const ImageProviders: Provider[] = [
     CreateImageProvider,
-    GetImageProvider
-]
+    GetImageProvider,
+];

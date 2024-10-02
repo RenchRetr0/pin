@@ -1,9 +1,8 @@
-import { ImageModel } from "@pin/domain/model";
-import { Type } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { ImageModel } from '@pin/domain/model';
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class UserModel
-{
+export class UserModel {
     @IsNotEmpty()
     @IsNumber()
     id!: number;

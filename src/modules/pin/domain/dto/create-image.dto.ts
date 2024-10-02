@@ -1,7 +1,6 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class CreateImageDto
-{
+export class CreateImageDto {
     @IsNotEmpty()
     @IsString()
     title!: string;

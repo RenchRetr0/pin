@@ -1,8 +1,7 @@
-import { Provider } from "@nestjs/common";
-import { GetUserProvider, UpdateUserProvider } from "../domain/domain";
+import { Provider } from '@nestjs/common';
+import { GetUserProvider, UpdateUserProvider } from '../domain/domain';
 
-export const ExportProviders: Provider[] =
-[
+export const ExportProviders: Provider[] = [
     GetUserProvider,
-    UpdateUserProvider
-]
+    UpdateUserProvider,
+];

@@ -1,9 +1,8 @@
-import { Provider } from "@nestjs/common";
-import { ImageProviders } from "./image";
-import { PinProviders } from "./pin";
+import { Provider } from '@nestjs/common';
+import { ImageProviders } from './image';
+import { PinProviders } from './pin';
 
-export const UseCaseProviders: Provider[] =
-[
+export const UseCaseProviders: Provider[] = [
     ...ImageProviders,
-    ...PinProviders
-]
+    ...PinProviders,
+];

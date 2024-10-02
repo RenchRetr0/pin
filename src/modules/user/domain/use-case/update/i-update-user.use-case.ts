@@ -1,6 +1,8 @@
-import { UpdateUserDto } from "@user/domain/dto";
+import { UpdateUserDto } from '@user/domain/dto';
 
-export abstract class IUpdateUserUseCase
-{
-    abstract update(userId: number, updateUserDto: UpdateUserDto): Promise<void>
+export abstract class IUpdateUserUseCase {
+    abstract update(
+        userId: number,
+        updateUserDto: UpdateUserDto,
+    ): Promise<void>;
 }

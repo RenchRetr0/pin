@@ -1,22 +1,34 @@
-import { Body, Controller, FileTypeValidator, Get, Inject, MaxFileSizeValidator, Param, ParseFilePipe, ParseIntPipe, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
-import { FileInterceptor } from "@nestjs/platform-express";
-import { CreateImageDto } from "@pin/domain/dto";
-import { ICreateImageUseCase } from "@pin/domain/use-case/image/create";
-import { MulterStorageConfig } from "@config/multer-storage.config";
-import { ImageModel } from "@pin/domain/model";
-import { JwtPayloadDto } from "@auth/domain/dto";
-import { GetCurrentUser } from "@common/decorators";
-import { IGetImageUseCase } from "@pin/domain/use-case/image/get";
+import {
+    Body,
+    Controller,
+    FileTypeValidator,
+    Get,
+    Inject,
+    MaxFileSizeValidator,
+    Param,
+    ParseFilePipe,
+    ParseIntPipe,
+    Post,
+    UploadedFile,
+    UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { CreateImageDto } from '@pin/domain/dto';
+import { ICreateImageUseCase } from '@pin/domain/use-case/image/create';
+import { MulterStorageConfig } from '@config/multer-storage.config';
+import { ImageModel } from '@pin/domain/model';
+import { JwtPayloadDto } from '@auth/domain/dto';
+import { GetCurrentUser } from '@common/decorators';
+import { IGetImageUseCase } from '@pin/domain/use-case/image/get';
 
 @Controller('image')
-export class ImageController
-{
+export class ImageController {
     constructor(
         @Inject(ICreateImageUseCase)
         private readonly createImageUseCase: ICreateImageUseCase,
         @Inject(IGetImageUseCase)
-        private readonly getImageUseCase: IGetImageUseCase
-    ){}
+        private readonly getImageUseCase: IGetImageUseCase,
+    ) {}
 
     @Post()
     @UseInterceptors(
@@ -38,14 +50,18 @@ export class ImageController
             }),
         )
         file: Express.Multer.File,
-    ): Promise<void>
-    {
-        await this.createImageUseCase.createImage(userToken.userId, createImageDto, file.filename);
+    ): Promise<void> {
+        await this.createImageUseCase.createImage(
+            userToken.userId,
+            createImageDto,
+            file.filename,
+        );
     }
 
     @Get(':id')
-    async getImage(@Param('id', ParseIntPipe) imageId: number): Promise<ImageModel| null>
-    {
+    async getImage(
+        @Param('id', ParseIntPipe) imageId: number,
+    ): Promise<ImageModel | null> {
         return await this.getImageUseCase.getById(imageId);
     }
 }

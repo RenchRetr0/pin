@@ -1,42 +1,50 @@
-import { UserEntity } from "@user/storages/entity";
-import { Type } from "class-transformer";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { UserEntity } from '@user/storages/entity';
+import { Type } from 'class-transformer';
+import {
+    Column,
+    CreateDateColumn,
+    DeleteDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('image')
-export class ImageEntity
-{
+export class ImageEntity {
     @PrimaryGeneratedColumn()
     id!: number;
 
     @Column({
         type: 'varchar',
-        name: 'title'
+        name: 'title',
     })
     title!: string;
 
     @Column({
         type: 'varchar',
         name: 'description',
-        nullable: true
+        nullable: true,
     })
     description?: string | null;
 
     @Column({
         type: 'varchar',
-        name: 'image_url'
+        name: 'image_url',
     })
     imageUrl!: string;
 
     @Column({
         type: 'int',
         name: 'user_id',
-        select: false
+        select: false,
     })
     userId!: number;
 
     @Type(() => UserEntity)
-    @ManyToOne(() => UserEntity, {nullable: true})
-    @JoinColumn({name: 'user_id'})
+    @ManyToOne(() => UserEntity, { nullable: true })
+    @JoinColumn({ name: 'user_id' })
     user?: UserEntity | null;
 
     @CreateDateColumn({

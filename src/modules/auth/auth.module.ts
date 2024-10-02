@@ -10,14 +10,9 @@ import { UserModule } from '@user/user.module';
         JwtModule.register({
             global: true,
         }),
-        UserModule
+        UserModule,
     ],
-    controllers: [
-        AuthController
-    ],
-    providers: [
-        JwtAuthGuard,
-        AuthProvider
-    ]
+    controllers: [AuthController],
+    providers: [JwtAuthGuard, AuthProvider],
 })
 export class AuthModule {}

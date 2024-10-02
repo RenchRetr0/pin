@@ -1,6 +1,5 @@
-import { UserModel } from "../../model";
+import { UserModel } from '../../model';
 
-export abstract class IGetUserUseCase
-{
-    abstract getById(userId: number): Promise<UserModel | null>
+export abstract class IGetUserUseCase {
+    abstract getById(userId: number): Promise<UserModel | null>;
 }
