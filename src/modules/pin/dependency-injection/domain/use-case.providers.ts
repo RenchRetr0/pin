@@ -1,8 +1,8 @@
 import { Provider } from '@nestjs/common';
 import { ImageProviders } from './image';
-import { PinProviders } from './pin';
+import { BoardProviders } from './board';
 
 export const UseCaseProviders: Provider[] = [
     ...ImageProviders,
-    ...PinProviders,
+    ...BoardProviders,
 ];

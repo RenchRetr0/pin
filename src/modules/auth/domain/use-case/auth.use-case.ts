@@ -16,7 +16,7 @@ export class AuthUseCase implements IAuthUseCase {
     async authPinterest(userId: number, code: string): Promise<any> {
         try {
             const result = await fetch(
-                'https://api.pinterest.com/v5/oauth/token',
+                'https://api-sandbox.pinterest.com/v5/oauth/token',
                 {
                     method: 'POST',
                     headers: {

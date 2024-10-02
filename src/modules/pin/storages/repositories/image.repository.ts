@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IImageRepository } from '@pin/domain/repository';
+import { IImageRepository } from '@pin/domain/repositories';
 import { ImageEntity } from '../entities';
 import { Repository } from 'typeorm';
 import { ImageModel } from '@pin/domain/model';
-import { CreateImageDto } from '@pin/domain/dto';
+import { CreateImageDto } from '@pin/domain/dto/image';
 
 @Injectable()
 export class ImageRepository implements IImageRepository {

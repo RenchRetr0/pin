@@ -3,7 +3,7 @@ import {
     TypeOrmModuleAsyncOptions,
     TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
-import { ImageEntity } from '@pin/storages/entities';
+import { BoardEntity, ImageEntity } from '@pin/storages/entities';
 import { UserEntity } from '@user/storages/entity';
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
@@ -19,7 +19,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
             username: configService.get<string>('APP_DB_USERNAME'),
             database: configService.get<string>('APP_DB_NAME'),
             password: configService.get<string>('APP_DB_PASSWORD'),
-            entities: [UserEntity, ImageEntity],
+            entities: [UserEntity, ImageEntity, BoardEntity],
             autoLoadEntities: true,
             synchronize: true,
             logging: false,

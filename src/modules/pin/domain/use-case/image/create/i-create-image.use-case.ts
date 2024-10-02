@@ -1,9 +1,9 @@
-import { CreateImageDto } from '@pin/domain/dto';
+import { RequestCreateImageDto } from '@pin/domain/dto/image';
 
 export abstract class ICreateImageUseCase {
     abstract createImage(
         userId: number,
-        createImageDto: CreateImageDto,
+        requestCreateImageDto: RequestCreateImageDto,
         imageName: string,
     ): Promise<void>;
 }

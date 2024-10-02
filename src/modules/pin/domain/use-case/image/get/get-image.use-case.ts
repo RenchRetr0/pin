@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IGetImageUseCase } from './i-get-image.use-case';
-import { IImageRepository } from '@pin/domain/repository';
+import { IImageRepository } from '@pin/domain/repositories';
 import { ImageModel } from '@pin/domain/model';
 
 @Injectable()

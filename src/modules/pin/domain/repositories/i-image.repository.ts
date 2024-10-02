@@ -1,4 +1,4 @@
-import { CreateImageDto } from '../dto';
+import { CreateImageDto } from '../dto/image';
 import { ImageModel } from '../model';
 
 export abstract class IImageRepository {

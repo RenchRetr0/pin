@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ImageEntity } from './storages/entities';
+import { BoardEntity, ImageEntity } from './storages/entities';
 import { UserModule } from '@user/user.module';
 import { UseCaseProviders } from './dependency-injection/domain';
-import { ImageProvider } from './dependency-injection/domain/storage';
-import { ImageController, PinController } from './api';
+import { RepositoryProviders } from './dependency-injection/domain/storage';
+import { BoardController, ImageController } from './api';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([ImageEntity]), UserModule],
-    controllers: [ImageController, PinController],
-    providers: [...UseCaseProviders, ImageProvider],
+    imports: [TypeOrmModule.forFeature([ImageEntity, BoardEntity]), UserModule],
+    controllers: [ImageController, BoardController],
+    providers: [...UseCaseProviders, ...RepositoryProviders],
     exports: [],
 })
 export class PinModule {}

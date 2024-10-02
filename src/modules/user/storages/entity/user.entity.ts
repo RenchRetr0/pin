@@ -1,4 +1,4 @@
-import { ImageEntity } from '@pin/storages/entities';
+import { BoardEntity, ImageEntity } from '@pin/storages/entities';
 import { Type } from 'class-transformer';
 import {
     Column,
@@ -37,7 +37,11 @@ export class UserEntity {
 
     @Type(() => Array<ImageEntity>)
     @OneToMany(() => ImageEntity, (image) => image.user)
-    image?: ImageEntity[] | null;
+    images?: ImageEntity[] | null;
+
+    @Type(() => Array<BoardEntity>)
+    @OneToMany(() => BoardEntity, (board) => board.user)
+    boards?: ImageEntity[] | null;
 
     @CreateDateColumn({
         name: 'create_at',
