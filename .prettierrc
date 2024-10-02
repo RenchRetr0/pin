@@ -1,0 +1,10 @@
+{
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 80,
+  "trailingComma": "all",
+  "tabWidth": 4,
+  "scripts": {
+    "lint": "prettier --write 'src/**/*.ts'"
+  }
+}
