@@ -22,7 +22,8 @@
       "@config/*": ["src/config/*"],
       "@auth/*": ["src/modules/auth/*"],
       "@user/*": ["src/modules/user/*"],
-      "@pin/*": ["src/modules/pin/*"],
+      "@board/*": ["src/modules/board/*"],
+      "@image/*": ["src/modules/image/*"],
     }
   }
 }

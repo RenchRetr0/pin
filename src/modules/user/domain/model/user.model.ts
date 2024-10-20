@@ -1,4 +1,4 @@
-import { ImageModel } from '@pin/domain/model';
+import { BoardModel } from '@board/domain/model';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
@@ -20,6 +20,6 @@ export class UserModel {
     refreshToken?: string | null;
 
     @IsOptional()
-    @Type(() => Array<ImageModel>)
-    images?: Array<ImageModel> | null;
+    @Type(() => Array<BoardModel>)
+    boards?: Array<BoardModel> | BoardModel | null;
 }

@@ -5,7 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmAsyncConfig } from '@config/typeorm.config';
 import { AuthModule } from '@auth/auth.module';
 import { UserModule } from './modules/user/user.module';
-import { PinModule } from './modules/pin/pin.module';
+import { BoardModule } from './modules/board/board.module';
+import { ImageModule } from './modules/image/image.module';
 
 @Module({
     imports: [
@@ -17,7 +18,8 @@ import { PinModule } from './modules/pin/pin.module';
         TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
         AuthModule,
         UserModule,
-        PinModule,
+        BoardModule,
+        ImageModule,
     ],
 })
 export class AppModule {}

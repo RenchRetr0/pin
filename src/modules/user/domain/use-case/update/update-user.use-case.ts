@@ -4,6 +4,7 @@ import { IUserRepository } from '@user/domain/repository';
 import { UpdateUserDto } from '@user/domain/dto';
 import { IGetUserUseCase } from '../get';
 import { UserModel } from '@user/domain/model';
+import { UserBarRequest } from '@user/domain/error';
 
 @Injectable()
 export class UpdateUserUseCase implements IUpdateUserUseCase {
@@ -28,6 +29,7 @@ export class UpdateUserUseCase implements IUpdateUserUseCase {
             }
         } catch (error) {
             console.log(error);
+            throw new UserBarRequest();
         }
     }
 }

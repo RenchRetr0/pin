@@ -3,8 +3,9 @@ import {
     TypeOrmModuleAsyncOptions,
     TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
-import { BoardEntity, ImageEntity } from '@pin/storages/entities';
 import { UserEntity } from '@user/storages/entity';
+import { BoardEntity } from '@board/storage/entity';
+import { ImageEntity } from '@image/storage/entity';
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     imports: [ConfigModule],

@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IGetUserUseCase } from './i-get-user.use-case';
 import { UserModel } from '@user/domain/model';
 import { IUserRepository } from '@user/domain/repository';
+import { UserNotFound } from '@user/domain/error';
 
 @Injectable()
 export class GetUserUseCase implements IGetUserUseCase {
@@ -10,11 +11,21 @@ export class GetUserUseCase implements IGetUserUseCase {
         private readonly userRepository: IUserRepository,
     ) {}
 
-    async getById(userId: number): Promise<UserModel | null> {
+    async getById(userId: number): Promise<UserModel> {
         const userModel = await this.userRepository.findById(userId);
-        if (!userModel) {
-            console.log(null);
-            return null;
-        } else return userModel;
+        if (!userModel) throw new UserNotFound();
+        else return userModel;
+    }
+
+    async getByIdWithBoard(
+        userId: number,
+        boardId: number,
+    ): Promise<UserModel> {
+        const userModel = await this.userRepository.findByIdWithBoard(
+            userId,
+            boardId,
+        );
+        if (!userModel) throw new UserNotFound();
+        else return userModel;
     }
 }
