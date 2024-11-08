@@ -30,7 +30,7 @@ async function bootstrap() {
         cors({
             origin: [
                 'http://localhost:5000',
-                'https://shop-flax-delta.vercel.app',
+                serverUrl,
             ],
         }),
     );

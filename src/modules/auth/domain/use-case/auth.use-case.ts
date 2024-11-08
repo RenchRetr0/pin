@@ -17,7 +17,7 @@ export class AuthUseCase implements IAuthUseCase {
         private readonly getUserUseCase: IGetUserUseCase,
     ) {}
 
-    async authPinterest(userId: number, code: string): Promise<any> {
+    async authPinterest(userId: number, code: string): Promise<string> {
         try {
             const bodyAuth = await this.getParamsBody(code);
             const result = await await this.requestPinterest(
@@ -30,6 +30,7 @@ export class AuthUseCase implements IAuthUseCase {
                 refreshToken: responsePinterestDto.refresh_token,
                 accessToken: responsePinterestDto.access_token,
             });
+            return await this.getUsernamePinterest(responsePinterestDto.access_token);
         } catch (error) {
             console.error(error);
             throw new AuthBarRequest();
@@ -69,6 +70,22 @@ export class AuthUseCase implements IAuthUseCase {
                 body: body,
             },
         );
+    }
+
+    private async getUsernamePinterest(authToken: string): Promise<string>
+    {
+        const bodyPinterestJson = await fetch(
+            `${this.configService.get<string>('PINTDOMAIN')}/user_account?`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${authToken}`,
+                },
+            }
+        );
+        const bodyPinterest = await bodyPinterestJson.json();
+        return bodyPinterest.username;
     }
 
     private async getBaseString(): Promise<string> {

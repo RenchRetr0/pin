@@ -59,18 +59,18 @@ export class ImageController {
         schema: {
             type: 'object',
             properties: {
-                title: { type: 'string', description: 'Название записи' }, // Поле title
+                title: { type: 'string', description: 'Название записи' },
                 description: {
                     type: 'string',
                     description: 'Описание записи',
                     nullable: true,
-                }, // Поле description
-                imageUrl: { type: 'string', description: 'URL изображения' }, // Поле imageUrl
-                boardId: { type: 'number', description: 'ID доски' }, // Поле boardId
+                },
+                imageUrl: { type: 'string', description: 'URL изображения' },
+                boardId: { type: 'number', description: 'ID доски' },
                 file: {
                     type: 'string',
-                    format: 'binary', // Указываем, что это бинарный файл
-                    description: 'Файл изображения (только .jpg или .png)', // Описание файла
+                    format: 'binary',
+                    description: 'Файл изображения (только .jpg или .png)',
                 },
             },
         },
