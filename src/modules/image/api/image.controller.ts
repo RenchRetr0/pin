@@ -15,7 +15,7 @@ import {
 import { ICreateImageUseCase } from '@image/domain/use-case/create';
 import { IGetImageUseCase } from '@image/domain/use-case/get/image';
 import { IGetImagesUseCase } from '@image/domain/use-case/get/images';
-import { CreateImageDto, CreateImageTimeDto } from '@image/domain/dto';
+import { ReqCreateImageDto, ReqCreateImageTimeDto } from '@image/domain/dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { MulterStorageConfig } from '@config/multer-storage.config';
 import { GetCurrentUser } from '@common/decorators';
@@ -66,7 +66,7 @@ export class ImageController {
                     nullable: true,
                 },
                 imageUrl: { type: 'string', description: 'URL изображения' },
-                boardId: { type: 'number', description: 'ID доски' },
+                boardId: { type: 'string', description: 'ID доски' },
                 file: {
                     type: 'string',
                     format: 'binary',
@@ -78,7 +78,7 @@ export class ImageController {
     @ApiResponse({ status: 400, description: 'Invalid request' })
     @ApiResponse({ status: 401, description: 'Unauthorized.' })
     async create(
-        @Body() createImageDto: CreateImageDto,
+        @Body() reqCreateImageDto: ReqCreateImageDto,
         @UploadedFile(
             new ParseFilePipe({
                 validators: [
@@ -92,7 +92,7 @@ export class ImageController {
         file: Express.Multer.File,
     ): Promise<void> {
         await this.createImageUseCase.createImage(
-            createImageDto,
+            reqCreateImageDto,
             file.filename,
         );
     }
@@ -120,7 +120,7 @@ export class ImageController {
                     nullable: true,
                 }, // Поле description
                 imageUrl: { type: 'string', description: 'URL изображения' }, // Поле imageUrl
-                boardId: { type: 'number', description: 'ID доски' }, // Поле boardId
+                boardId: { type: 'string', description: 'ID доски' }, // Поле boardId
                 publishedAt: {
                     type: 'timestamp',
                     format: 'timestamp',
@@ -137,7 +137,7 @@ export class ImageController {
     @ApiResponse({ status: 400, description: 'Invalid request' })
     @ApiResponse({ status: 401, description: 'Unauthorized.' })
     async createImageTime(
-        @Body() createImageTimeDto: CreateImageTimeDto,
+        @Body() reqCreateImageTimeDto: ReqCreateImageTimeDto,
         @UploadedFile(
             new ParseFilePipe({
                 validators: [
@@ -151,7 +151,7 @@ export class ImageController {
         file: Express.Multer.File,
     ): Promise<void> {
         await this.createImageUseCase.createImageTime(
-            createImageTimeDto,
+            reqCreateImageTimeDto,
             file.filename,
         );
     }

@@ -9,4 +9,5 @@ export abstract class IUserRepository {
     ): Promise<UserModel | null>;
     abstract create(createUserDto: CreateUserDto): Promise<UserModel>;
     abstract update(userId: number, userModel: UserModel): Promise<void>;
+    abstract findByLogin(login: string): Promise<UserModel | null>;
 }

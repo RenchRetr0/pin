@@ -31,6 +31,24 @@ export class UserRepository implements IUserRepository {
         }
     }
 
+    async findByLogin(login: string): Promise<UserModel | null> {
+        const userEntity = await this.userRepository.findOne({
+            where: {
+                login: login,
+            },
+        });
+        if (!userEntity) return null;
+        else {
+            const userModel: UserModel = {
+                id: userEntity.id,
+                login: userEntity.login,
+                accessToken: userEntity.accessToken ?? null,
+                refreshToken: userEntity.refreshToken ?? null,
+            };
+            return userModel;
+        }
+    }
+
     async findByIdWithBoard(
         userId: number,
         boardId: number,

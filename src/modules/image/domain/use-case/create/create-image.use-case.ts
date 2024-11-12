@@ -1,5 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateImageDto, CreateImageTimeDto } from '@image/domain/dto';
+import {
+    CreateImageDto,
+    CreateImageTimeDto,
+    ReqCreateImageDto,
+    ReqCreateImageTimeDto,
+} from '@image/domain/dto';
 import { IImageRepository } from '@image/domain/repository';
 import { IGetBoardUseCase } from '@board/domain/use-case/get/board';
 import { ConfigService } from '@nestjs/config';
@@ -21,14 +26,20 @@ export class CreateImageUseCase implements ICreateImageUseCase {
     ) {}
 
     async createImage(
-        createImageDto: CreateImageDto,
+        reqCreateImageDto: ReqCreateImageDto,
         imageName: string,
     ): Promise<void> {
-        await this.getBoardUseCase.getById(createImageDto.boardId);
+        const boardId: number = Number(reqCreateImageDto.boardId);
+        await this.getBoardUseCase.getById(boardId);
 
-        createImageDto.imageUrl = `${this.configService.get<string>(
-            'SERVER_URL',
-        )}/uploads/${imageName}`;
+        let createImageDto: CreateImageDto = {
+            title: reqCreateImageDto.title,
+            description: reqCreateImageDto.description,
+            boardId: boardId,
+            imageUrl: `${this.configService.get<string>(
+                'SERVER_URL',
+            )}/uploads/${imageName}`,
+        };
 
         try {
             const imageModel = await this.imageRepository.create(
@@ -42,14 +53,23 @@ export class CreateImageUseCase implements ICreateImageUseCase {
     }
 
     async createImageTime(
-        createImageTimeDto: CreateImageTimeDto,
+        reqCreateImageTimeDto: ReqCreateImageTimeDto,
         imageName: string,
     ): Promise<void> {
-        await this.getBoardUseCase.getById(createImageTimeDto.boardId);
-        createImageTimeDto.isStatus = false;
-        createImageTimeDto.imageUrl = `${this.configService.get<string>(
-            'SERVER_URL',
-        )}/uploads/${imageName}`;
+        const boardId: number = Number(reqCreateImageTimeDto.boardId);
+
+        await this.getBoardUseCase.getById(boardId);
+
+        let createImageTimeDto: CreateImageTimeDto = {
+            title: reqCreateImageTimeDto.title,
+            description: reqCreateImageTimeDto.description,
+            boardId: boardId,
+            publishedAt: reqCreateImageTimeDto.publishedAt,
+            imageUrl: `${this.configService.get<string>(
+                'SERVER_URL',
+            )}/uploads/${imageName}`,
+            isStatus: false,
+        };
         try {
             await this.imageRepository.create(createImageTimeDto);
         } catch (error) {

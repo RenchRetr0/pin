@@ -3,9 +3,12 @@ import { HttpStatusCode } from '@common/enums/http-status';
 import { HttpStatusMessage } from '@common/enums/http-status-message.enum';
 
 export class UserBarRequest extends HttpException {
-    constructor() {
+    constructor(message: string | void) {
         super(
-            { message: HttpStatusMessage[HttpStatusCode.BAD_REQUEST] },
+            {
+                message:
+                    message ?? HttpStatusMessage[HttpStatusCode.BAD_REQUEST],
+            },
             HttpStatusCode.BAD_REQUEST,
         );
     }

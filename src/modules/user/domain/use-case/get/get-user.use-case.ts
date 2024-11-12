@@ -28,4 +28,8 @@ export class GetUserUseCase implements IGetUserUseCase {
         if (!userModel) throw new UserNotFound();
         else return userModel;
     }
+
+    async getByLogin(login: string): Promise<UserModel | null> {
+        return await this.userRepository.findByLogin(login);
+    }
 }

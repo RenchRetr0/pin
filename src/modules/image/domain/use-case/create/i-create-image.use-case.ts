@@ -1,12 +1,12 @@
-import { CreateImageDto, CreateImageTimeDto } from '@image/domain/dto';
+import { ReqCreateImageDto, ReqCreateImageTimeDto } from '@image/domain/dto';
 
 export abstract class ICreateImageUseCase {
     abstract createImage(
-        createImageDto: CreateImageDto,
+        reqCreateImageDto: ReqCreateImageDto,
         imageName: string,
     ): Promise<void>;
     abstract createImageTime(
-        createImageTimeDto: CreateImageTimeDto,
+        reqCreateImageTimeDto: ReqCreateImageTimeDto,
         imageName: string,
     ): Promise<void>;
 }

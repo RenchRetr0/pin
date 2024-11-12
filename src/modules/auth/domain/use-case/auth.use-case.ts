@@ -1,7 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { IUpdateUserUseCase } from '@user/domain/use-case/update';
-import { RequestRefreshTokenDto, ResponserPinterestDto } from '../dto';
+import {
+    JwtPayloadDto,
+    RequestRefreshTokenDto,
+    ResponserPinterestDto,
+} from '../dto';
 import { IAuthUseCase } from './i-auth.use-case';
 import { IGetUserUseCase } from '@user/domain/use-case/get';
 import { AuthBarRequest } from '../error';
@@ -11,11 +16,24 @@ export class AuthUseCase implements IAuthUseCase {
     constructor(
         @Inject(ConfigService)
         private readonly configService: ConfigService,
+        @Inject(JwtService)
+        private readonly jwtService: JwtService,
         @Inject(IUpdateUserUseCase)
         private readonly updateUserUseCase: IUpdateUserUseCase,
         @Inject(IGetUserUseCase)
         private readonly getUserUseCase: IGetUserUseCase,
     ) {}
+
+    async getAccessToken(login: string): Promise<string> {
+        const userModel = await this.getUserUseCase.getByLogin(login);
+        if (!userModel) throw new AuthBarRequest();
+        try {
+            return await this.generateToken({ userId: userModel.id });
+        } catch (error) {
+            console.log(error.message);
+            throw new AuthBarRequest();
+        }
+    }
 
     async authPinterest(userId: number, code: string): Promise<string> {
         try {
@@ -30,7 +48,9 @@ export class AuthUseCase implements IAuthUseCase {
                 refreshToken: responsePinterestDto.refresh_token,
                 accessToken: responsePinterestDto.access_token,
             });
-            return await this.getUsernamePinterest(responsePinterestDto.access_token);
+            return await this.getUsernamePinterest(
+                responsePinterestDto.access_token,
+            );
         } catch (error) {
             console.error(error);
             throw new AuthBarRequest();
@@ -58,6 +78,13 @@ export class AuthUseCase implements IAuthUseCase {
         }
     }
 
+    private async generateToken(jwtToken: JwtPayloadDto): Promise<string> {
+        const payload = { jwtToken };
+        return this.jwtService.sign(payload, {
+            secret: this.configService.get<string>('APP_SECRET_TOKEN'),
+        });
+    }
+
     private async requestPinterest(body: string): Promise<Response> {
         return await fetch(
             `${this.configService.get<string>('PINTDOMAIN')}/oauth/token`,
@@ -72,8 +99,7 @@ export class AuthUseCase implements IAuthUseCase {
         );
     }
 
-    private async getUsernamePinterest(authToken: string): Promise<string>
-    {
+    private async getUsernamePinterest(authToken: string): Promise<string> {
         const bodyPinterestJson = await fetch(
             `${this.configService.get<string>('PINTDOMAIN')}/user_account?`,
             {
@@ -82,7 +108,7 @@ export class AuthUseCase implements IAuthUseCase {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${authToken}`,
                 },
-            }
+            },
         );
         const bodyPinterest = await bodyPinterestJson.json();
         return bodyPinterest.username;

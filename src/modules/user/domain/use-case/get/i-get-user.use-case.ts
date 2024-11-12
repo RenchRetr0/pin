@@ -6,4 +6,5 @@ export abstract class IGetUserUseCase {
         userId: number,
         boardId: number,
     ): Promise<UserModel>;
+    abstract getByLogin(login: string): Promise<UserModel | null>;
 }
