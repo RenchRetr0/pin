@@ -28,7 +28,7 @@ export class AuthUseCase implements IAuthUseCase {
         const userModel = await this.getUserUseCase.getByLogin(login);
         if (!userModel) throw new AuthBarRequest();
         try {
-            return await this.generateToken({ userId: userModel.id });
+            return await this.generateToken(userModel.id);
         } catch (error) {
             console.log(error.message);
             throw new AuthBarRequest();
@@ -78,8 +78,8 @@ export class AuthUseCase implements IAuthUseCase {
         }
     }
 
-    private async generateToken(jwtToken: JwtPayloadDto): Promise<string> {
-        const payload = { jwtToken };
+    private async generateToken(userId: number): Promise<string> {
+        const payload = { userId };
         return this.jwtService.sign(payload, {
             secret: this.configService.get<string>('APP_SECRET_TOKEN'),
         });
