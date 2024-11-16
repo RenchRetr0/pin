@@ -60,7 +60,7 @@ export class CreateBoardUseCase implements ICreateBoardUseCase {
                     body: JSON.stringify(bodyString),
                 },
             );
-            return result.json();
+            return await result.json();
         } catch (error) {
             console.error(error);
         }

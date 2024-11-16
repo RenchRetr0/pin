@@ -3,6 +3,7 @@ import { IGetImageUseCase } from '../get/image';
 import { ConfigService } from '@nestjs/config';
 import { IRequestPinUseCase } from './i-request-pin.use-case';
 import { IUpdateImageUseCase } from '../update';
+import { Code } from 'typeorm';
 
 @Injectable()
 export class RequestPinUseCase implements IRequestPinUseCase {
@@ -27,7 +28,7 @@ export class RequestPinUseCase implements IRequestPinUseCase {
                     url: imageModel.imageUrl,
                 },
             };
-            await fetch(
+            const result = await fetch(
                 `${this.configService.get<string>('PINTDOMAIN')}/pins`,
                 {
                     method: 'POST',
@@ -38,6 +39,13 @@ export class RequestPinUseCase implements IRequestPinUseCase {
                     body: JSON.stringify(bodyString),
                 },
             );
+            const response = await result.json();
+            if (response.code == 1) {
+                await this.updateImageUseCase.updateStatus(imageId, {
+                    errorMessage: response.message,
+                    isStatus: false,
+                });
+            }
         } catch (error) {
             console.error(error.message);
             await this.updateImageUseCase.updateStatus(imageId, {
