@@ -91,6 +91,7 @@ export class ImageController {
         )
         file: Express.Multer.File,
     ): Promise<void> {
+        console.log('File get: ', file);
         await this.createImageUseCase.createImage(
             reqCreateImageDto,
             file.filename,

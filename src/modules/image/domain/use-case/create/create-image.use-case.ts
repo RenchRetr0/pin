@@ -56,6 +56,7 @@ export class CreateImageUseCase implements ICreateImageUseCase {
         reqCreateImageTimeDto: ReqCreateImageTimeDto,
         imageName: string,
     ): Promise<void> {
+        console.log('File name in use-case: ', imageName);
         const boardId: number = Number(reqCreateImageTimeDto.boardId);
 
         await this.getBoardUseCase.getById(boardId);
