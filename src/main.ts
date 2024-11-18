@@ -18,19 +18,23 @@ async function bootstrap() {
 
     const config = app.get(ConfigService);
     const port = config.get<number>('APP_PORT');
-    const baseUrl = config.get<string>('APP_DOMAIN');
     const serverUrl = config.get<string>('SERVER_URL');
+
+    const uploadDir = config.get<string>('UPLOAD_DIR');
+    const staticUrlPath = config.get<string>('STATIC_URL_PATH');
 
     app.useGlobalFilters(new HttpExceptionFilter());
     app.useGlobalFilters(new HttpExceptionFilter());
     app.useGlobalInterceptors(new TransformResponseInterceptor());
-
-    app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
+    
+    app.use(staticUrlPath, express.static(uploadDir));
+    //app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
     app.use(
         cors({
             origin: '*',
         }),
     );
+      
     console.log(join(__dirname, '..', 'uploads'));
 
     const configDocument = new DocumentBuilder()
@@ -38,7 +42,6 @@ async function bootstrap() {
         .setDescription('Swagger Super-SMM')
         .setVersion('1.0')
         .addBearerAuth()
-        .addServer(baseUrl)
         .addServer(serverUrl)
         .build();
     const document = SwaggerModule.createDocument(app, configDocument);
