@@ -31,6 +31,7 @@ async function bootstrap() {
             origin: [serverUrl],
         }),
     );
+    console.log(join(__dirname, '..', 'uploads'));
 
     const configDocument = new DocumentBuilder()
         .setTitle('SMM Doc')

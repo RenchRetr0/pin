@@ -70,6 +70,7 @@ export class CreateImageUseCase implements ICreateImageUseCase {
             )}/uploads/${imageName}`,
             isStatus: false,
         };
+        console.log(createImageTimeDto.imageUrl);
         try {
             await this.imageRepository.create(createImageTimeDto);
         } catch (error) {
