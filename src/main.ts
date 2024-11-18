@@ -28,15 +28,12 @@ async function bootstrap() {
     app.useGlobalInterceptors(new TransformResponseInterceptor());
     
     app.use(staticUrlPath, express.static(uploadDir));
-    //app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
     app.use(
         cors({
             origin: '*',
         }),
     );
       
-    console.log(join(__dirname, '..', 'uploads'));
-
     const configDocument = new DocumentBuilder()
         .setTitle('SMM Doc')
         .setDescription('Swagger Super-SMM')

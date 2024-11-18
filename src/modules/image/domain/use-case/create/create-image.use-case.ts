@@ -29,7 +29,6 @@ export class CreateImageUseCase implements ICreateImageUseCase {
         reqCreateImageDto: ReqCreateImageDto,
         imageName: string,
     ): Promise<void> {
-        console.log('File name in use-case: ', imageName);
         const boardId: number = Number(reqCreateImageDto.boardId);
         await this.getBoardUseCase.getById(boardId);
 
@@ -41,7 +40,6 @@ export class CreateImageUseCase implements ICreateImageUseCase {
                 'SERVER_URL',
             )}/uploads/${imageName}`,
         };
-        console.log(createImageDto.imageUrl);
 
         try {
             const imageModel = await this.imageRepository.create(
