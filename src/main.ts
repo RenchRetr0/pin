@@ -28,7 +28,7 @@ async function bootstrap() {
     app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
     app.use(
         cors({
-            origin: [serverUrl],
+            origin: '*',
         }),
     );
     console.log(join(__dirname, '..', 'uploads'));
