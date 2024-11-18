@@ -29,6 +29,7 @@ export class CreateImageUseCase implements ICreateImageUseCase {
         reqCreateImageDto: ReqCreateImageDto,
         imageName: string,
     ): Promise<void> {
+        console.log('File name in use-case: ', imageName);
         const boardId: number = Number(reqCreateImageDto.boardId);
         await this.getBoardUseCase.getById(boardId);
 
@@ -40,6 +41,7 @@ export class CreateImageUseCase implements ICreateImageUseCase {
                 'SERVER_URL',
             )}/uploads/${imageName}`,
         };
+        console.log(createImageDto.imageUrl);
 
         try {
             const imageModel = await this.imageRepository.create(
@@ -56,7 +58,6 @@ export class CreateImageUseCase implements ICreateImageUseCase {
         reqCreateImageTimeDto: ReqCreateImageTimeDto,
         imageName: string,
     ): Promise<void> {
-        console.log('File name in use-case: ', imageName);
         const boardId: number = Number(reqCreateImageTimeDto.boardId);
 
         await this.getBoardUseCase.getById(boardId);
@@ -71,7 +72,6 @@ export class CreateImageUseCase implements ICreateImageUseCase {
             )}/uploads/${imageName}`,
             isStatus: false,
         };
-        console.log(createImageTimeDto.imageUrl);
         try {
             await this.imageRepository.create(createImageTimeDto);
         } catch (error) {
