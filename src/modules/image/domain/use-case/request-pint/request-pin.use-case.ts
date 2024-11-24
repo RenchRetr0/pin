@@ -46,6 +46,10 @@ export class RequestPinUseCase implements IRequestPinUseCase {
                     isStatus: false,
                 });
             }
+            else
+            {
+                await this.updateImageUseCase.updateStatus(imageId, {isStatus: true})
+            }
         } catch (error) {
             console.error(error.message);
             await this.updateImageUseCase.updateStatus(imageId, {

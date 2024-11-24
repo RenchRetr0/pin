@@ -24,7 +24,6 @@ async function bootstrap() {
     const staticUrlPath = config.get<string>('STATIC_URL_PATH');
 
     app.useGlobalFilters(new HttpExceptionFilter());
-    app.useGlobalFilters(new HttpExceptionFilter());
     app.useGlobalInterceptors(new TransformResponseInterceptor());
     
     app.use(staticUrlPath, express.static(uploadDir));

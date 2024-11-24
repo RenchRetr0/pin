@@ -143,7 +143,7 @@ export class ImageController {
                 validators: [
                     new MaxFileSizeValidator({ maxSize: 10000000 }),
                     new FileTypeValidator({
-                        fileType: new RegExp(/image\/(jpg|png)/g),
+                        fileType: new RegExp(/image\/(jpeg|png)/g),
                     }),
                 ],
             }),
